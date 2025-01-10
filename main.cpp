@@ -18,7 +18,7 @@
 #define CLAMP_PORT 'a'
 #define FLAG_PORT 'b'
 
-pros::Motor Intake(-INTAKE_PORT);
+pros::Motor Intake(INTAKE_PORT);
 pros::Motor HighStakes(HIGH_STAKES_PORT);
 
 pros::MotorGroup LeftDriveSmart({LEFT_MOTOR_A_PORT, LEFT_MOTOR_B_PORT, -LEFT_MOTOR_C_PORT}); //Creates a motor group with forwards ports 1 & 4 and reversed port 7
@@ -26,8 +26,8 @@ pros::MotorGroup RightDriveSmart({RIGHT_MOTOR_A_PORT, RIGHT_MOTOR_B_PORT, -RIGHT
 pros::Imu DrivetrainInertial(INERTIAL_PORT);
 //DrivetrainInertial.reset();
 pros::MotorGroup smartdrive ({LEFT_MOTOR_A_PORT, LEFT_MOTOR_B_PORT, -LEFT_MOTOR_C_PORT, RIGHT_MOTOR_A_PORT, RIGHT_MOTOR_B_PORT, -RIGHT_MOTOR_C_PORT, INERTIAL_PORT});
-pros::ADIDigitalOut Clamp ({EXT_ADI_SMART_PORT, CLAMP_PORT});
-pros::ADIDigitalOut Flag ({EXT_ADI_SMART_PORT, FLAG_PORT});
+pros::ADIDigitalOut Clamp ({CLAMP_PORT});
+pros::ADIDigitalOut Flag ({FLAG_PORT});
 
 
 bool flagState = false;
@@ -105,7 +105,43 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+    // Set brake mode to hold
+    RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
+    // Move motors at specified velocities
+    RightDriveSmart.move_velocity(-50);
+    LeftDriveSmart.move_velocity(50); // drives in reverse
+
+    // Delay for 1 second
+    pros::delay(700);
+
+    // Stop motors
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(500);
+
+    ToggleClamp(); //the clamp starts at false then moves to true
+    pros::delay(500);
+
+    Intake.move_velocity(-200);
+
+    pros::delay(700);
+
+    Intake.move_velocity(0);
+
+    pros::delay(500);
+
+    RightDriveSmart.move_velocity(-50);
+    LeftDriveSmart.move_velocity(50); // drives reverse
+
+    pros::delay(500);
+
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -151,7 +187,7 @@ void opcontrol() {
         if (Controller1.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) {
             ToggleClamp();
         }
-        if (Controller1.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
+        if (Controller1.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) {
             ToggleFlag();
         }
 
