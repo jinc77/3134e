@@ -18,7 +18,7 @@
 #define CLAMP_PORT 'a'
 #define FLAG_PORT 'b'
 
-pros::Motor Intake(INTAKE_PORT);
+pros::Motor Intake(-INTAKE_PORT);
 pros::Motor HighStakes(HIGH_STAKES_PORT);
 
 pros::MotorGroup LeftDriveSmart({LEFT_MOTOR_A_PORT, LEFT_MOTOR_B_PORT, -LEFT_MOTOR_C_PORT}); //Creates a motor group with forwards ports 1 & 4 and reversed port 7
@@ -110,7 +110,11 @@ void autonomous() {
     RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
+    HighStakes.move_velocity(50);
+    pros::delay(500);
+    HighStakes.move_velocity(0);
     // Move motors at specified velocities
     RightDriveSmart.move_velocity(-50);
     LeftDriveSmart.move_velocity(50); // drives in reverse
@@ -141,6 +145,10 @@ void autonomous() {
 
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
+
+    HighStakes.move_velocity(-50);
+    pros::delay(500);
+    HighStakes.move_velocity(0);
 }
 
 /**
