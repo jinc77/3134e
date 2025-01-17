@@ -112,7 +112,10 @@ void autonomous() {
     Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
-    HighStakes.move_velocity(50);
+    ToggleClamp(); //the clamp starts at true then moves to false
+    pros::delay(500);
+
+    HighStakes.move_velocity(-50);
     pros::delay(500);
     HighStakes.move_velocity(0);
     // Move motors at specified velocities
@@ -120,17 +123,16 @@ void autonomous() {
     LeftDriveSmart.move_velocity(50); // drives in reverse
 
     // Delay for 1 second
-    pros::delay(700);
+    pros::delay(3000);
 
     // Stop motors
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
     pros::delay(500);
 
-    ToggleClamp(); //the clamp starts at false then moves to true
-    pros::delay(500);
+    ToggleClamp(); //the clamp is now at false then moves to true
 
-    Intake.move_velocity(-200);
+    Intake.move_velocity(200);
 
     pros::delay(700);
 
@@ -146,7 +148,7 @@ void autonomous() {
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
 
-    HighStakes.move_velocity(-50);
+    HighStakes.move_velocity(50);
     pros::delay(500);
     HighStakes.move_velocity(0);
 }
