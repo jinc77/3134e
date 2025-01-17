@@ -73,7 +73,7 @@ void initialize() {
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
 	pros::lcd::register_btn1_cb(on_center_button);
-	
+	DrivetrainInertial.reset();
 }
 
 /**
@@ -107,6 +107,8 @@ void competition_initialize() {}
  */
 void autonomous() {
     // Set brake mode to hold
+    DrivetrainInertial.reset();
+    
     RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
@@ -131,7 +133,8 @@ void autonomous() {
     pros::delay(500);
 
     ToggleClamp(); //the clamp is now at false then moves to true
-
+    pros::delay(500);
+    
     Intake.move_velocity(200);
 
     pros::delay(700);
