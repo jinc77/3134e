@@ -105,55 +105,67 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
+
+
+void TurnInertial(int Degrees){
+    while (DrivetrainInertial.get_heading()<Degrees){
+        RightDriveSmart.move_velocity(10);
+        LeftDriveSmart.move_velocity(10);
+    }
+            RightDriveSmart.move_velocity(0);
+        LeftDriveSmart.move_velocity(0);
+
+}
+
 void autonomous() {
     // Set brake mode to hold
     DrivetrainInertial.reset();
+    TurnInertial(90);
+    // RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    // LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    // Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    // HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
+    // ToggleClamp(); //the clamp starts at true then moves to false
+    // pros::delay(500);
+
+    // HighStakes.move_velocity(-50);
+    // pros::delay(500);
+    // HighStakes.move_velocity(0);
+    // // Move motors at specified velocities
+    // RightDriveSmart.move_velocity(-50);
+    // LeftDriveSmart.move_velocity(50); // drives in reverse
+
+    // // Delay for 1 second
+    // pros::delay(3000);
+
+    // // Stop motors
+    // RightDriveSmart.move_velocity(0);
+    // LeftDriveSmart.move_velocity(0);
+    // pros::delay(500);
+
+    // ToggleClamp(); //the clamp is now at false then moves to true
+    // pros::delay(500);
     
-    RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    // Intake.move_velocity(200);
 
-    ToggleClamp(); //the clamp starts at true then moves to false
-    pros::delay(500);
+    // pros::delay(700);
 
-    HighStakes.move_velocity(-50);
-    pros::delay(500);
-    HighStakes.move_velocity(0);
-    // Move motors at specified velocities
-    RightDriveSmart.move_velocity(-50);
-    LeftDriveSmart.move_velocity(50); // drives in reverse
+    // Intake.move_velocity(0);
 
-    // Delay for 1 second
-    pros::delay(3000);
+    // pros::delay(500);
 
-    // Stop motors
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
-    pros::delay(500);
+    // RightDriveSmart.move_velocity(-50);
+    // LeftDriveSmart.move_velocity(50); // drives reverse
 
-    ToggleClamp(); //the clamp is now at false then moves to true
-    pros::delay(500);
-    
-    Intake.move_velocity(200);
+    // pros::delay(500);
 
-    pros::delay(700);
+    // RightDriveSmart.move_velocity(0);
+    // LeftDriveSmart.move_velocity(0);
 
-    Intake.move_velocity(0);
-
-    pros::delay(500);
-
-    RightDriveSmart.move_velocity(-50);
-    LeftDriveSmart.move_velocity(50); // drives reverse
-
-    pros::delay(500);
-
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
-
-    HighStakes.move_velocity(50);
-    pros::delay(500);
-    HighStakes.move_velocity(0);
+    // HighStakes.move_velocity(50);
+    // pros::delay(500);
+    // HighStakes.move_velocity(0);
 }
 
 /**
