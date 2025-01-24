@@ -166,6 +166,7 @@ void autonomous() {
     HighStakes.move_velocity(50);
     pros::delay(500);
     HighStakes.move_velocity(0);
+
 }
 
 /**
