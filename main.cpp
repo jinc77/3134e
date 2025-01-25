@@ -23,7 +23,7 @@ pros::Motor HighStakes(HIGH_STAKES_PORT);
 
 pros::MotorGroup LeftDriveSmart({LEFT_MOTOR_A_PORT, LEFT_MOTOR_B_PORT, -LEFT_MOTOR_C_PORT}); //Creates a motor group with forwards ports 1 & 4 and reversed port 7
 pros::MotorGroup RightDriveSmart({RIGHT_MOTOR_A_PORT, RIGHT_MOTOR_B_PORT, -RIGHT_MOTOR_C_PORT}); //Creates a motor group with forwards port 2 and reversed port 4 and 7
-pros::Imu DrivetrainInertial(INERTIAL_PORT);
+pros::Imu Inertial(INERTIAL_PORT);
 //DrivetrainInertial.reset();
 pros::MotorGroup smartdrive ({LEFT_MOTOR_A_PORT, LEFT_MOTOR_B_PORT, -LEFT_MOTOR_C_PORT, RIGHT_MOTOR_A_PORT, RIGHT_MOTOR_B_PORT, -RIGHT_MOTOR_C_PORT, INERTIAL_PORT});
 pros::ADIDigitalOut Clamp ({CLAMP_PORT});
@@ -73,7 +73,7 @@ void initialize() {
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
 	pros::lcd::register_btn1_cb(on_center_button);
-	DrivetrainInertial.reset();
+	Inertial.reset();
 }
 
 /**
@@ -107,17 +107,42 @@ void competition_initialize() {}
  */
 
 
-void TurnInertial(int Degrees){
-    while (DrivetrainInertial.get_heading()<Degrees){
-        RightDriveSmart.move_velocity(10);
-        LeftDriveSmart.move_velocity(10);
-    }
-            RightDriveSmart.move_velocity(0);
-        LeftDriveSmart.move_velocity(0);
 
+enum Direction {clockwise, counterclockwise};
+void TurnDegrees(pros::IMU& inertial, Direction dir, int degrees) {
+    
+
+    int initial = inertial.get_heading();
+    int targetdeg;
+
+    if (dir == clockwise) {
+        targetdeg = (initial + degrees) % 360;
+        LeftDriveSmart.move_velocity(-20);
+        RightDriveSmart.move_velocity(20);
+
+        while (inertial.get_heading() < targetdeg) {
+            pros::delay(5);
+        }
+    } else if (dir==counterclockwise) { 
+        targetdeg = 360-degrees;
+        
+        RightDriveSmart.move_velocity(-20);
+        LeftDriveSmart.move_velocity(20);
+
+        while (inertial.get_heading() > targetdeg || inertial.get_heading() < 5) {
+            pros::delay(5);
+        }
+    }
+
+    // Stop the motors
+    LeftDriveSmart.move_velocity(0);
+    RightDriveSmart.move_velocity(0);
 }
 
+
 void autonomous() {
+    //TurnDegrees(Inertial, clockwise/counterclockwise, degrees);
+
     // Set brake mode to hold
     //DrivetrainInertial.reset();
     //TurnInertial(90);
@@ -129,32 +154,31 @@ void autonomous() {
     ToggleClamp(); //the clamp starts at true then moves to false
     pros::delay(500);
 
-    HighStakes.move_velocity(-50);
-    pros::delay(500);
-    HighStakes.move_velocity(0);
+    HighStakes.move_relative(-600, 100);
     // Move motors at specified velocities
     RightDriveSmart.move_velocity(-50);
     LeftDriveSmart.move_velocity(50); // drives in reverse
 
-    // Delay for 1 second
-    pros::delay(3000);
+    // Delay for 2.5 seconds for match and .5 seconds for skills
+    pros::delay(2500);
 
     // Stop motors
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
     pros::delay(500);
 
-    ToggleClamp(); //the clamp is now at false then moves to true
+    ToggleClamp(); //the clamp is now at false then moves to true abc 
     pros::delay(500);
     
     Intake.move_velocity(200);
 
-    pros::delay(700);
+    pros::delay(900);
 
     Intake.move_velocity(0);
 
     pros::delay(500);
-
+    //comment out the following code for skills
+    //------------------------------------
     RightDriveSmart.move_velocity(-50);
     LeftDriveSmart.move_velocity(50); // drives reverse
 
@@ -162,11 +186,9 @@ void autonomous() {
 
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
+    //-------------------------------------
 
-    HighStakes.move_velocity(50);
-    pros::delay(500);
-    HighStakes.move_velocity(0);
-
+    HighStakes.move_relative(24, 100);
 }
 
 /**
