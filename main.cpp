@@ -110,7 +110,6 @@ void competition_initialize() {}
 
 enum Direction {clockwise, counterclockwise};
 void TurnDegrees(pros::IMU& inertial, Direction dir, int degrees) {
-    
 
     int initial = inertial.get_heading();
     int targetdeg;
@@ -118,15 +117,15 @@ void TurnDegrees(pros::IMU& inertial, Direction dir, int degrees) {
     if (dir == clockwise) {
         targetdeg = (initial + degrees) % 360;
         LeftDriveSmart.move_velocity(-20);
-        RightDriveSmart.move_velocity(20);
+        RightDriveSmart.move_velocity(-20);
 
         while (inertial.get_heading() < targetdeg) {
             pros::delay(5);
         }
-    } else if (dir==counterclockwise) { 
+    } else if (dir==counterclockwise) { // if not spinning counter when called, flip the negatives in this method and clockwise method
         targetdeg = 360-degrees;
         
-        RightDriveSmart.move_velocity(-20);
+        RightDriveSmart.move_velocity(20);
         LeftDriveSmart.move_velocity(20);
 
         while (inertial.get_heading() > targetdeg || inertial.get_heading() < 5) {
@@ -146,7 +145,7 @@ void autonomous() {
     // Set brake mode to hold
     //DrivetrainInertial.reset();
     //TurnInertial(90);
-    RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+   /* RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
@@ -188,7 +187,68 @@ void autonomous() {
     LeftDriveSmart.move_velocity(0);
     //-------------------------------------
 
-    HighStakes.move_relative(24, 100);
+    HighStakes.move_relative(24, 100);*/
+    //---------------------------------------------
+    RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
+    Inertial.reset();
+    ToggleClamp();// clamp starts at false so moves to true
+    HighStakes.move_relative(-600,100);// moves high stake up in order for it to be out of the way for the intake
+    pros::delay(500);
+    LeftDriveSmart.move_velocity(70);// drives in reverse
+    RightDriveSmart.move_velocity(-70);
+    pros::delay(800);
+    ToggleClamp();// sets the clamp from true to false
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    Intake.move_velocity(200);// scores the ring into the moble goal
+    pros::delay(700);
+    Intake.move_velocity(0);
+    RightDriveSmart.move_velocity(80);// turns counterclockwise
+    LeftDriveSmart.move_velocity(80);
+    pros::delay(680);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(100);
+    RightDriveSmart.move_velocity(80);// drives forwards
+    LeftDriveSmart.move_velocity(-80);
+    Intake.move_velocity(200);// activates intake in order to pick up ring
+    pros::delay(700);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(1000);
+    Intake.move_velocity(0);
+    RightDriveSmart.move_velocity(80);// turns counterclockwise
+    LeftDriveSmart.move_velocity(80);
+    pros::delay(495);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(100);
+    RightDriveSmart.move_velocity(80);// drives forwards
+    LeftDriveSmart.move_velocity(-80);
+    Intake.move_velocity(200);// activates intake in order to pick up ring
+    pros::delay(750);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(1300);
+    Intake.move_velocity(0);
+    RightDriveSmart.move_velocity(80);// turns counterclockwise
+    LeftDriveSmart.move_velocity(80);
+    pros::delay(500);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(100);
+    RightDriveSmart.move_velocity(80);// drives forwards
+    LeftDriveSmart.move_velocity(-80);
+    Intake.move_velocity(200);// activates intake in order to pick up ring
+    pros::delay(1000);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(500);
+    Intake.move_velocity(0);
 }
 
 /**
