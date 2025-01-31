@@ -141,60 +141,26 @@ void TurnDegrees(pros::IMU& inertial, Direction dir, int degrees) {
 
 void autonomous() {
     //TurnDegrees(Inertial, clockwise/counterclockwise, degrees);
-
-    // Set brake mode to hold
-    //DrivetrainInertial.reset();
-    //TurnInertial(90);
-   /* RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    Inertial.reset();
+    pros::delay(2000);
 
     ToggleClamp(); //the clamp starts at true then moves to false
     pros::delay(500);
 
     HighStakes.move_relative(-600, 100);
-    // Move motors at specified velocities
-    RightDriveSmart.move_velocity(-50);
-    LeftDriveSmart.move_velocity(50); // drives in reverse
 
-    // Delay for 2.5 seconds for match and .5 seconds for skills
-    pros::delay(2500);
-
-    // Stop motors
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
-    pros::delay(500);
-
-    ToggleClamp(); //the clamp is now at false then moves to true abc 
-    pros::delay(500);
-    
-    Intake.move_velocity(200);
-
-    pros::delay(900);
-
-    Intake.move_velocity(0);
-
-    pros::delay(500);
-    //comment out the following code for skills
-    //------------------------------------
-    RightDriveSmart.move_velocity(-50);
-    LeftDriveSmart.move_velocity(50); // drives reverse
-
-    pros::delay(500);
-
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
-    //-------------------------------------
-
-    HighStakes.move_relative(24, 100);*/
+    // Auton for skills
     //---------------------------------------------
-    RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    /*RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-
     Inertial.reset();
+    pros::delay(2000);
     ToggleClamp();// clamp starts at false so moves to true
     HighStakes.move_relative(-600,100);// moves high stake up in order for it to be out of the way for the intake
     pros::delay(500);
@@ -204,53 +170,109 @@ void autonomous() {
     ToggleClamp();// sets the clamp from true to false
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
+
     Intake.move_velocity(200);// scores the ring into the moble goal
     pros::delay(700);
     Intake.move_velocity(0);
+
+    pros::delay(100);
+
     RightDriveSmart.move_velocity(80);// turns counterclockwise
     LeftDriveSmart.move_velocity(80);
     pros::delay(680);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
+
     pros::delay(100);
+
     RightDriveSmart.move_velocity(80);// drives forwards
     LeftDriveSmart.move_velocity(-80);
     Intake.move_velocity(200);// activates intake in order to pick up ring
     pros::delay(700);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
-    pros::delay(1000);
+    pros::delay(1500);
     Intake.move_velocity(0);
+
+    pros::delay(100);
+
     RightDriveSmart.move_velocity(80);// turns counterclockwise
     LeftDriveSmart.move_velocity(80);
     pros::delay(495);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
+
     pros::delay(100);
+
     RightDriveSmart.move_velocity(80);// drives forwards
     LeftDriveSmart.move_velocity(-80);
     Intake.move_velocity(200);// activates intake in order to pick up ring
-    pros::delay(750);
+    pros::delay(900);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
-    pros::delay(1300);
+    pros::delay(1500);
     Intake.move_velocity(0);
+    
+    pros::delay(100);
+
     RightDriveSmart.move_velocity(80);// turns counterclockwise
     LeftDriveSmart.move_velocity(80);
-    pros::delay(500);
+    pros::delay(495);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
+
     pros::delay(100);
+
     RightDriveSmart.move_velocity(80);// drives forwards
     LeftDriveSmart.move_velocity(-80);
     Intake.move_velocity(200);// activates intake in order to pick up ring
-    pros::delay(1000);
+    pros::delay(1300);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
-    pros::delay(500);
-    Intake.move_velocity(0);
-}
 
+    pros::delay(100);
+
+    RightDriveSmart.move_velocity(-80);// turns clockwise
+    LeftDriveSmart.move_velocity(-80);
+    pros::delay(680);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+
+    pros::delay(100);
+
+    RightDriveSmart.move_velocity(80);// drives forwards
+    LeftDriveSmart.move_velocity(-80);
+    pros::delay(500);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(1500);
+    Intake.move_velocity(0);
+
+    pros::delay(100);
+
+    TurnDegrees(Inertial, clockwise, 77);
+
+    pros::delay(100);
+
+    RightDriveSmart.move_velocity(-80);
+    LeftDriveSmart.move_velocity(80);
+    pros::delay(300);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    ToggleClamp();
+
+    pros::delay(100);
+
+    RightDriveSmart.move_velocity(80);
+    LeftDriveSmart.move_velocity(-80);
+    pros::delay(300);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+
+    pros::delay(100);
+
+    TurnDegrees(Inertial, counterclockwise, 85);*/
+}
 /**
  * Runs the operator control code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
