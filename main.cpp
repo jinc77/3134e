@@ -116,8 +116,8 @@ void TurnDegrees(pros::IMU& inertial, Direction dir, int degrees) {
 
     if (dir == clockwise) {
         targetdeg = (initial + degrees) % 360;
-        LeftDriveSmart.move_velocity(-20);
-        RightDriveSmart.move_velocity(-20);
+        LeftDriveSmart.move_velocity(-50);
+        RightDriveSmart.move_velocity(-50);
 
         while (inertial.get_heading() < targetdeg) {
             pros::delay(5);
@@ -125,8 +125,8 @@ void TurnDegrees(pros::IMU& inertial, Direction dir, int degrees) {
     } else if (dir==counterclockwise) { // if not spinning counter when called, flip the negatives in this method and clockwise method
         targetdeg = 360-degrees;
         
-        RightDriveSmart.move_velocity(20);
-        LeftDriveSmart.move_velocity(20);
+        RightDriveSmart.move_velocity(50);
+        LeftDriveSmart.move_velocity(50);
 
         while (inertial.get_heading() > targetdeg || inertial.get_heading() < 5) {
             pros::delay(5);
@@ -146,13 +146,27 @@ void autonomous() {
     Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     Inertial.reset();
-    pros::delay(2000);
+    pros::delay(2200);
 
     ToggleClamp(); //the clamp starts at true then moves to false
     pros::delay(500);
 
     HighStakes.move_relative(-600, 100);
 
+    RightDriveSmart.move_velocity(-80);
+    LeftDriveSmart.move_velocity(80);
+    pros::delay(1400);
+    ToggleClamp();// grabs the moble goal, sets clamp to true
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+
+    Intake.move_velocity(200);
+    pros::delay(1000);
+    Intake.move_velocity(0);
+
+    pros::delay(100);
+
+    TurnDegrees(Inertial, clockwise, 68);
     // Auton for skills
     //---------------------------------------------
     /*RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
