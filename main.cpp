@@ -24,7 +24,6 @@ pros::Motor HighStakes(HIGH_STAKES_PORT);
 pros::MotorGroup LeftDriveSmart({LEFT_MOTOR_A_PORT, LEFT_MOTOR_B_PORT, -LEFT_MOTOR_C_PORT}); //Creates a motor group with forwards ports 1 & 4 and reversed port 7
 pros::MotorGroup RightDriveSmart({RIGHT_MOTOR_A_PORT, RIGHT_MOTOR_B_PORT, -RIGHT_MOTOR_C_PORT}); //Creates a motor group with forwards port 2 and reversed port 4 and 7
 pros::Imu Inertial(INERTIAL_PORT);
-//DrivetrainInertial.reset();
 pros::MotorGroup smartdrive ({LEFT_MOTOR_A_PORT, LEFT_MOTOR_B_PORT, -LEFT_MOTOR_C_PORT, RIGHT_MOTOR_A_PORT, RIGHT_MOTOR_B_PORT, -RIGHT_MOTOR_C_PORT, INERTIAL_PORT});
 pros::ADIDigitalOut Clamp ({CLAMP_PORT});
 pros::ADIDigitalOut Flag ({FLAG_PORT});
@@ -110,23 +109,24 @@ void competition_initialize() {}
 
 enum Direction {clockwise, counterclockwise};
 void TurnDegrees(pros::IMU& inertial, Direction dir, int degrees) {
-
-    int initial = inertial.get_heading();
+    Inertial.reset();
+    pros::delay(1000);
+    int initial = Inertial.get_heading();
     int targetdeg;
 
     if (dir == clockwise) {
         targetdeg = (initial + degrees) % 360;
-        LeftDriveSmart.move_velocity(-50);
-        RightDriveSmart.move_velocity(-50);
+        LeftDriveSmart.move_velocity(20);
+        RightDriveSmart.move_velocity(20);
 
         while (inertial.get_heading() < targetdeg) {
             pros::delay(5);
         }
-    } else if (dir==counterclockwise) { // if not spinning counter when called, flip the negatives in this method and clockwise method
+    } else if (dir==counterclockwise) { 
         targetdeg = 360-degrees;
         
-        RightDriveSmart.move_velocity(50);
-        LeftDriveSmart.move_velocity(50);
+        RightDriveSmart.move_velocity(-20);
+        LeftDriveSmart.move_velocity(-20);
 
         while (inertial.get_heading() > targetdeg || inertial.get_heading() < 5) {
             pros::delay(5);
@@ -138,6 +138,26 @@ void TurnDegrees(pros::IMU& inertial, Direction dir, int degrees) {
     RightDriveSmart.move_velocity(0);
 }
 
+void moveForward(int speed){
+    RightDriveSmart.move_velocity(-speed);
+    LeftDriveSmart.move_velocity(speed);
+}
+void driveStop(){
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+}
+void turn(int speed, int dir){
+    if (dir = 1) {
+    RightDriveSmart.move_velocity(-speed);
+    LeftDriveSmart.move_velocity(-speed);
+    // turn left
+    }
+    if (dir = 0) {
+    RightDriveSmart.move_velocity(speed);
+    LeftDriveSmart.move_velocity(speed);
+    // turn right
+    }
+}
 
 void autonomous() {
     //TurnDegrees(Inertial, clockwise/counterclockwise, degrees);
@@ -145,28 +165,54 @@ void autonomous() {
     LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    Inertial.reset();
-    pros::delay(2200);
+    //Inertial.reset();
+    //pros::delay(2200);
 
     ToggleClamp(); //the clamp starts at true then moves to false
     pros::delay(500);
 
     HighStakes.move_relative(-600, 100);
-
-    RightDriveSmart.move_velocity(-80);
-    LeftDriveSmart.move_velocity(80);
-    pros::delay(1400);
+    
+    moveForward(80);
+    pros::delay(1500);
     ToggleClamp();// grabs the moble goal, sets clamp to true
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
+    driveStop();
 
-    Intake.move_velocity(200);
-    pros::delay(1000);
-    Intake.move_velocity(0);
-
+    Intake.move_velocity(200);  
+    pros::delay(1200);
+    Intake.move_velocity(0); // scores preload
     pros::delay(100);
-
-    TurnDegrees(Inertial, clockwise, 68);
+    turn(80, 0);
+    pros::delay(300);
+    driveStop();
+    moveForward(-80);
+    Intake.move_velocity(200);
+    pros::delay(650);
+    driveStop();
+    pros::delay(1500); // scores 1st ring
+    Intake.move_velocity(0);
+    moveForward(-80);
+    pros::delay(75);
+    driveStop();
+    turn(80, 0);
+    pros::delay(400);
+    driveStop();
+    moveForward(-80);
+    Intake.move_velocity(200);
+    pros::delay(500);
+    driveStop();
+    pros::delay(1500);
+    Intake.move_velocity(0); // scores 2nd ring
+    turn(-80, 0);
+    pros::delay(225);
+    driveStop();
+    pros::delay(500);
+    moveForward(-80);
+    Intake.move_velocity(200);
+    pros::delay(300);
+    driveStop();
+    pros::delay(2000);
+    Intake.move_velocity(0);
     // Auton for skills
     //---------------------------------------------
     /*RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
