@@ -160,59 +160,67 @@ void turn(int speed, int dir){
 }
 
 void autonomous() {
-    //TurnDegrees(Inertial, clockwise/counterclockwise, degrees);
     RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
+    
+    // negitive side auton
+    //----------------------------------------------------------------
+    //TurnDegrees(Inertial, clockwise/counterclockwise, degrees);
+    // RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    // LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    // Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    // HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     //Inertial.reset();
     //pros::delay(2200);
 
-    ToggleClamp(); //the clamp starts at true then moves to false
-    pros::delay(500);
+    // ToggleClamp(); //the clamp starts at true then moves to false
+    // pros::delay(500);
 
-    HighStakes.move_relative(-600, 100);
+    // HighStakes.move_relative(-600, 100);
     
-    moveForward(80);
-    pros::delay(1500);
-    ToggleClamp();// grabs the moble goal, sets clamp to true
-    driveStop();
+    // moveForward(80);
+    // pros::delay(1500);
+    // ToggleClamp();// grabs the moble goal, sets clamp to true
+    // driveStop();
 
-    Intake.move_velocity(200);  
-    pros::delay(1200);
-    Intake.move_velocity(0); // scores preload
-    pros::delay(100);
-    turn(80, 0);
-    pros::delay(300);
-    driveStop();
-    moveForward(-80);
-    Intake.move_velocity(200);
-    pros::delay(650);
-    driveStop();
-    pros::delay(1500); // scores 1st ring
-    Intake.move_velocity(0);
-    moveForward(-80);
-    pros::delay(75);
-    driveStop();
-    turn(80, 0);
-    pros::delay(400);
-    driveStop();
-    moveForward(-80);
-    Intake.move_velocity(200);
-    pros::delay(500);
-    driveStop();
-    pros::delay(1500);
-    Intake.move_velocity(0); // scores 2nd ring
-    turn(-80, 0);
-    pros::delay(225);
-    driveStop();
-    pros::delay(500);
-    moveForward(-80);
-    Intake.move_velocity(200);
-    pros::delay(300);
-    driveStop();
-    pros::delay(2000);
-    Intake.move_velocity(0);
+    // Intake.move_velocity(200);  
+    // pros::delay(1200);
+    // Intake.move_velocity(0); // scores preload
+    // pros::delay(100);
+    // turn(80, 0);
+    // pros::delay(300);
+    // driveStop();
+    // moveForward(-80);
+    // Intake.move_velocity(200);
+    // pros::delay(650);
+    // driveStop();
+    // pros::delay(1500); // scores 1st ring
+    // Intake.move_velocity(0);
+    // moveForward(-80);
+    // pros::delay(75);
+    // driveStop();
+    // turn(80, 0);
+    // pros::delay(400);
+    // driveStop();
+    // moveForward(-80);
+    // Intake.move_velocity(200);
+    // pros::delay(550);
+    // driveStop();
+    // pros::delay(2000);
+    // Intake.move_velocity(0); // scores 2nd ring
+    // turn(-80, 0); this is commented out because it will cross the line
+    // pros::delay(225);
+    // driveStop();
+    // pros::delay(100);
+    // moveForward(-80);
+    // Intake.move_velocity(200);
+    // pros::delay(250);
+    // driveStop();
+    // pros::delay(2000);
+    // Intake.move_velocity(0);
     // Auton for skills
     //---------------------------------------------
     /*RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
