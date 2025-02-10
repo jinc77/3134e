@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/motors.hpp"
 
 #define LEFT_MOTOR_A_PORT 1
 #define LEFT_MOTOR_B_PORT 4
@@ -19,7 +20,11 @@
 #define FLAG_PORT 'b'
 
 pros::Motor Intake(-INTAKE_PORT);
+
+
 pros::Motor HighStakes(HIGH_STAKES_PORT);
+// pros::Motor HighStakes(port, pros::motor_gearset_e:: E_MOTOR_GEAR_RED);
+
 
 pros::MotorGroup LeftDriveSmart({LEFT_MOTOR_A_PORT, LEFT_MOTOR_B_PORT, -LEFT_MOTOR_C_PORT}); //Creates a motor group with forwards ports 1 & 4 and reversed port 7
 pros::MotorGroup RightDriveSmart({RIGHT_MOTOR_A_PORT, RIGHT_MOTOR_B_PORT, -RIGHT_MOTOR_C_PORT}); //Creates a motor group with forwards port 2 and reversed port 4 and 7
@@ -31,6 +36,10 @@ pros::ADIDigitalOut Flag ({FLAG_PORT});
 
 bool flagState = false;
 bool clampState = false;
+
+void negative();
+void skills();
+void positive();
 
 void ToggleClamp() {
     clampState = !clampState;          // Toggle the state
@@ -160,106 +169,61 @@ void turn(int speed, int dir){
 }
 
 void autonomous() {
-    // TurnDegrees(Inertial, clockwise/counterclockwise, degrees);
-    // positive side auton
-    // RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    // LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    // Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    // HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    // ToggleClamp();
-    // HighStakes.move_relative(-600, 100);
-
-    // RightDriveSmart.move_velocity(-80);
-    // LeftDriveSmart.move_velocity(80);
-    // pros::delay(1000);
-    // ToggleClamp();
-    // RightDriveSmart.move_velocity(0);
-    // LeftDriveSmart.move_velocity(0);
-    // pros::delay(100);
-    // Intake.move_velocity(200);
-    // pros::delay(1500);
-    // Intake.move_velocity(0);
-
-    // negitive side auton
-    //----------------------------------------------------------------
+    //negative();
+    //skills();
+    positive();
+}
+void positive() {
+    //TurnDegrees(Inertial, clockwise/counterclockwise, degrees);
+    //positive side auton
     RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    // Inertial.reset();
-    // pros::delay(2200);
-
-    ToggleClamp(); //the clamp starts at true then moves to false
-    pros::delay(500);
-
+    ToggleClamp();
     HighStakes.move_relative(-600, 100);
-    
-    moveForward(80);
-    pros::delay(1500);
-    ToggleClamp();// grabs the moble goal, sets clamp to true
-    driveStop();
 
-    Intake.move_velocity(200);  
-    pros::delay(1200);
-    Intake.move_velocity(0); // scores preload
-    pros::delay(100);
-    turn(80, 0);
-    pros::delay(300);
-    driveStop();
-    moveForward(-80);
-    Intake.move_velocity(200);
-    pros::delay(650);
-    driveStop();
-    pros::delay(1500); // scores 1st ring
-    Intake.move_velocity(0);
-    moveForward(-80);
-    pros::delay(75);
-    driveStop();
-    turn(80, 0);
-    pros::delay(400);
-    driveStop();
-    moveForward(-80);
-    Intake.move_velocity(200);
-    pros::delay(550);
-    driveStop();
-    pros::delay(2000);
-    Intake.move_velocity(0); // scores 2nd ring
-    // turn(-80, 0); // this is commented out because it will cross the line
-    // pros::delay(225);
-    // driveStop();
-    // pros::delay(100);
-    // moveForward(-80);
-    // Intake.move_velocity(200);
-    // pros::delay(250);
-    // driveStop();
-    // pros::delay(2000);
-    // Intake.move_velocity(0);
     RightDriveSmart.move_velocity(-80);
     LeftDriveSmart.move_velocity(80);
-    pros::delay(500);
+    pros::delay(1500);
+    ToggleClamp();
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
     pros::delay(100);
+    Intake.move_velocity(200);
+    pros::delay(2000);
+    Intake.move_velocity(0);
+
+    RightDriveSmart.move_velocity(80);
+    LeftDriveSmart.move_velocity(80);
+    pros::delay(350);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(100);
+    RightDriveSmart.move_velocity(80);
+    LeftDriveSmart.move_velocity(-80);
+    Intake.move_velocity(200);
+    pros::delay(650);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(2000);
+    Intake.move_velocity(0);
+
     RightDriveSmart.move_velocity(-80);
     LeftDriveSmart.move_velocity(-80);
-    pros::delay(300);
+    pros::delay(880);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
     pros::delay(100);
     RightDriveSmart.move_velocity(80);
     LeftDriveSmart.move_velocity(-80);
-    pros::delay(100);
+    pros::delay(1000);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
-    pros::delay(100);
-    RightDriveSmart.move_velocity(80);
-    LeftDriveSmart.move_velocity(-80);
-    pros::delay(700);
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
-    // Auton for skills
-    //---------------------------------------------
-    /*RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+}
+
+void skills() {
+    RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
@@ -375,7 +339,74 @@ void autonomous() {
 
     pros::delay(100);
 
-    TurnDegrees(Inertial, counterclockwise, 85);*/
+    TurnDegrees(Inertial, counterclockwise, 85);
+}
+
+void negative() {
+    RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
+    ToggleClamp(); //the clamp starts at true then moves to false
+    pros::delay(500);
+
+    HighStakes.move_relative(-600, 100);
+    
+    moveForward(80);
+    pros::delay(1500);
+    ToggleClamp();// grabs the moble goal, sets clamp to true
+    driveStop();
+
+    Intake.move_velocity(200);  
+    pros::delay(1200);
+    Intake.move_velocity(0); // scores preload
+    pros::delay(100);
+    turn(80, 0);
+    pros::delay(300);
+    driveStop();
+    moveForward(-80);
+    Intake.move_velocity(200);
+    pros::delay(650);
+    driveStop();
+    pros::delay(1500); // scores 1st ring
+    Intake.move_velocity(0);
+    moveForward(-80);
+    pros::delay(75);
+    driveStop();
+    turn(80, 0);
+    pros::delay(400);
+    driveStop();
+    moveForward(-80);
+    Intake.move_velocity(200);
+    pros::delay(550);
+    driveStop();
+    pros::delay(2000);
+    Intake.move_velocity(0); // scores 2nd ring
+    RightDriveSmart.move_velocity(-80);
+    LeftDriveSmart.move_velocity(80);
+    pros::delay(500);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(100);
+    RightDriveSmart.move_velocity(-80);
+    LeftDriveSmart.move_velocity(-80);
+    pros::delay(300);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(100);
+    RightDriveSmart.move_velocity(80);
+    LeftDriveSmart.move_velocity(-80);
+    pros::delay(100);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(100);
+    RightDriveSmart.move_velocity(80);
+    LeftDriveSmart.move_velocity(-80);
+    pros::delay(700);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+
 }
 /**
  * Runs the operator control code. This function will be started in its own task
