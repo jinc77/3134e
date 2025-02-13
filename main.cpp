@@ -5,7 +5,7 @@
 #define LEFT_MOTOR_B_PORT 4
 #define LEFT_MOTOR_C_PORT 7 
 
-#define RIGHT_MOTOR_A_PORT 2
+#define RIGHT_MOTOR_A_PORT 9
 #define RIGHT_MOTOR_B_PORT 6
 #define RIGHT_MOTOR_C_PORT 5
 
