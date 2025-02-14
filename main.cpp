@@ -40,6 +40,7 @@ bool clampState = false;
 void negative();
 void skills();
 void positive();
+void blue_pos();
 
 void ToggleClamp() {
     clampState = !clampState;          // Toggle the state
@@ -171,7 +172,54 @@ void turn(int speed, int dir){
 void autonomous() {
     //negative();
     //skills();
-    positive();
+    //positive();
+    blue_pos();
+}
+void blue_pos() {
+    RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    HighStakes.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    ToggleClamp();
+    HighStakes.move_relative(-600, 100);
+
+    RightDriveSmart.move_velocity(-80);
+    LeftDriveSmart.move_velocity(80);
+    pros::delay(1500);
+    ToggleClamp();
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(100);
+    Intake.move_velocity(200);
+    pros::delay(2000);
+    Intake.move_velocity(0);
+
+    RightDriveSmart.move_velocity(-80);
+    LeftDriveSmart.move_velocity(-80);
+    pros::delay(350);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(100);
+    RightDriveSmart.move_velocity(80);
+    LeftDriveSmart.move_velocity(-80);
+    Intake.move_velocity(200);
+    pros::delay(650);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(2000);
+    Intake.move_velocity(0);
+
+    RightDriveSmart.move_velocity(80);
+    LeftDriveSmart.move_velocity(80);
+    pros::delay(880);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
+    pros::delay(100);
+    RightDriveSmart.move_velocity(80);
+    LeftDriveSmart.move_velocity(-80);
+    pros::delay(1000);
+    RightDriveSmart.move_velocity(0);
+    LeftDriveSmart.move_velocity(0);
 }
 void positive() {
     //TurnDegrees(Inertial, clockwise/counterclockwise, degrees);
