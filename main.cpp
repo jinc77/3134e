@@ -1,18 +1,18 @@
 #include "main.h"
 #include "pros/motors.hpp"
 
-#define LEFT_MOTOR_A_PORT 15
+#define LEFT_MOTOR_A_PORT 18
 #define LEFT_MOTOR_B_PORT 20
-#define LEFT_MOTOR_C_PORT 9
+#define LEFT_MOTOR_C_PORT 4
 
 #define RIGHT_MOTOR_A_PORT 13
 #define RIGHT_MOTOR_B_PORT 11
-#define RIGHT_MOTOR_C_PORT 1
+#define RIGHT_MOTOR_C_PORT 3
 
 #define INERTIAL_PORT 21
 
 #define INTAKE_PORT 3
-#define ROTATION_PORT 2
+#define ROTATION_PORT 1
 #define HIGH_STAKES_PORT 8
 
 #define EXT_ADI_SMART_PORT 1
@@ -20,8 +20,8 @@
 #define CLAMP_PORT2 'c'
 #define FLAG_PORT 'b'
 
-#define SCORE_ANGLE 270
-#define PICKUP_ANGLE 100
+#define SCORE_ANGLE 179.91
+#define PICKUP_ANGLE 358.59
 
 pros::Motor Intake(-INTAKE_PORT);
 
@@ -127,33 +127,40 @@ void competition_initialize() {}
 
 void scoreHighStakes()
 {
-    while ((RotationSensor.get_angle() / 100) != SCORE_ANGLE)
-    { // could do < or <=
-        if ((RotationSensor.get_angle() / 100) <= PICKUP_ANGLE)
-        {
-            HighStakes.move_velocity(100);
-        }
-        else
-        {
-            HighStakes.move_velocity(-100);
-        }
+    while ((RotationSensor.get_angle() / 100) < SCORE_ANGLE)
+    {
+        pros::screen::print(pros::E_TEXT_MEDIUM, 3, "Angle Is less than 360 : %3d", RotationSensor.get_angle() / 100);
+        HighStakes.move_velocity(-100);
     }
+    HighStakes.move_velocity(0);
+
+    while ((RotationSensor.get_angle() / 100) >= SCORE_ANGLE)
+    { // could do < or <=
+        pros::screen::print(pros::E_TEXT_MEDIUM, 3, "Angle is greater than 360: %3d", RotationSensor.get_angle() / 100);
+        HighStakes.move_velocity(100);
+    }
+    HighStakes.move_velocity(0);
+
     return;
 }
 
 void pickupHighStakes()
 {
-    while ((RotationSensor.get_angle() / 100) != PICKUP_ANGLE)
-    { // could do < or <=
-        if ((RotationSensor.get_angle() / 100) <= PICKUP_ANGLE)
-        {
-            HighStakes.move_velocity(100);
-        }
-        else
-        {
-            HighStakes.move_velocity(-100);
-        }
+
+    while ((RotationSensor.get_angle() / 100) < PICKUP_ANGLE)
+    {
+        pros::screen::print(pros::E_TEXT_MEDIUM, 3, "Angle Is less than 360 : %3d", RotationSensor.get_angle() / 100);
+        HighStakes.move_velocity(-100);
     }
+    HighStakes.move_velocity(0);
+
+    while ((RotationSensor.get_angle() / 100) >= PICKUP_ANGLE)
+    { // could do < or <=
+        pros::screen::print(pros::E_TEXT_MEDIUM, 3, "Angle is greater than 360: %3d", RotationSensor.get_angle() / 100);
+        HighStakes.move_velocity(100);
+    }
+    HighStakes.move_velocity(0);
+
     return;
 }
 
@@ -625,7 +632,7 @@ void opcontrol()
         {
             ToggleClamp();
         }
-        if (Controller1.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B))
+        if (Controller1.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y))
         {
             ToggleFlag();
         }
@@ -633,7 +640,7 @@ void opcontrol()
         {
             scoreHighStakes();
         }
-        if (Controller1.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y))
+        if (Controller1.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B))
         {
             pickupHighStakes();
         }
@@ -653,15 +660,15 @@ void opcontrol()
         }
         if (Controller1.get_digital(pros::E_CONTROLLER_DIGITAL_R1))
         {
-            HighStakes.move_velocity(-100); // Spin intake forward
+            HighStakes.move_velocity(-100); // Spin high stakes forward
         }
         else if (Controller1.get_digital(pros::E_CONTROLLER_DIGITAL_R2))
         {
-            HighStakes.move_velocity(100); // Spin intake backward
+            HighStakes.move_velocity(100); // Spin high stakes backward
         }
         else
         {
-            HighStakes.move_velocity(0); // Stop intake
+            HighStakes.move_velocity(0); // Stop high stakes
         }
 
         // Delay to prevent CPU overload
