@@ -283,7 +283,7 @@ void turn(int speed, int dir)
 void autonomous()
 {
     // Skills();
-    // Red_Negative();
+    Red_Negative();
     // Blue_Negative();
     // Blue_Positive();
     // Red_Positive();
@@ -306,7 +306,6 @@ void Blue_Positive()
     Intake.move_velocity(200);
     pros::delay(2000);
     Intake.move_velocity(0);
-    ToggleClamp();
 
     RightDriveSmart.move_velocity(-80);
     LeftDriveSmart.move_velocity(-80);
@@ -322,59 +321,60 @@ void Blue_Positive()
     pros::delay(900);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
+    pros::delay(1500);
     Intake.move_velocity(0);
 
-    RightDriveSmart.move_velocity(80);
-    LeftDriveSmart.move_velocity(80);
-    pros::delay(350);
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
-    pros::delay(100);
+    // RightDriveSmart.move_velocity(80);
+    // LeftDriveSmart.move_velocity(80);
+    // pros::delay(350);
+    // RightDriveSmart.move_velocity(0);
+    // LeftDriveSmart.move_velocity(0);
+    // pros::delay(100);
 
-    RightDriveSmart.move_velocity(-80);
-    LeftDriveSmart.move_velocity(80);
-    pros::delay(400);
-    ToggleFlag();
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
-    pros::delay(100);
-    RightDriveSmart.move_velocity(80);
-    LeftDriveSmart.move_velocity(-80);
-    pros::delay(500);
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
-    pros::delay(100);
-    ToggleFlag(); // takes off the mobel goal (next is to camp it)
+    // RightDriveSmart.move_velocity(-80);
+    // LeftDriveSmart.move_velocity(80);
+    // pros::delay(400);
+    // ToggleFlag();
+    // RightDriveSmart.move_velocity(0);
+    // LeftDriveSmart.move_velocity(0);
+    // pros::delay(100);
+    // RightDriveSmart.move_velocity(80);
+    // LeftDriveSmart.move_velocity(-80);
+    // pros::delay(500);
+    // RightDriveSmart.move_velocity(0);
+    // LeftDriveSmart.move_velocity(0);
+    // pros::delay(100);
+    // ToggleFlag(); // takes off the mobel goal (next is to camp it)
 
-    RightDriveSmart.move_velocity(-80);
-    LeftDriveSmart.move_velocity(-80);
-    pros::delay(400);
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
+    // RightDriveSmart.move_velocity(-80);
+    // LeftDriveSmart.move_velocity(-80);
+    // pros::delay(400);
+    // RightDriveSmart.move_velocity(0);
+    // LeftDriveSmart.move_velocity(0);
 
-    RightDriveSmart.move_velocity(-80);
-    LeftDriveSmart.move_velocity(80);
-    pros::delay(300);
-    ToggleClamp();
-    RightDriveSmart.move_velocity(80);
-    LeftDriveSmart.move_velocity(-80);
-    pros::delay(200);
+    // RightDriveSmart.move_velocity(-80);
+    // LeftDriveSmart.move_velocity(80);
+    // pros::delay(300);
+    // ToggleClamp();
+    // RightDriveSmart.move_velocity(80);
+    // LeftDriveSmart.move_velocity(-80);
+    // pros::delay(200);
 
-    Intake.move_velocity(200);
-    pros::delay(2000);
-    Intake.move_velocity(0);
+    // Intake.move_velocity(200);
+    // pros::delay(2000);
+    // Intake.move_velocity(0);
 
-    RightDriveSmart.move_velocity(80);
-    LeftDriveSmart.move_velocity(80);
-    pros::delay(400);
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
+    // RightDriveSmart.move_velocity(80);
+    // LeftDriveSmart.move_velocity(80);
+    // pros::delay(400);
+    // RightDriveSmart.move_velocity(0);
+    // LeftDriveSmart.move_velocity(0);
 
-    RightDriveSmart.move_velocity(80);
-    LeftDriveSmart.move_velocity(-80);
-    pros::delay(400);
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
+    // RightDriveSmart.move_velocity(80);
+    // LeftDriveSmart.move_velocity(-80);
+    // pros::delay(400);
+    // RightDriveSmart.move_velocity(0);
+    // LeftDriveSmart.move_velocity(0);
 }
 
 void Red_Positive()
@@ -395,11 +395,10 @@ void Red_Positive()
     Intake.move_velocity(200);
     pros::delay(2000);
     Intake.move_velocity(0);
-    ToggleClamp();
 
     RightDriveSmart.move_velocity(80);
     LeftDriveSmart.move_velocity(80);
-    pros::delay(335);
+    pros::delay(330);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
 
@@ -411,59 +410,60 @@ void Red_Positive()
     pros::delay(900);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
+    pros::delay(1500);
     Intake.move_velocity(0);
 
-    RightDriveSmart.move_velocity(-80);
-    LeftDriveSmart.move_velocity(-80);
-    pros::delay(350);
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
-    pros::delay(100);
+    // RightDriveSmart.move_velocity(-80);
+    // LeftDriveSmart.move_velocity(-80);
+    // pros::delay(350);
+    // RightDriveSmart.move_velocity(0);
+    // LeftDriveSmart.move_velocity(0);
+    // pros::delay(100);
 
-    RightDriveSmart.move_velocity(-80);
-    LeftDriveSmart.move_velocity(80);
-    pros::delay(400);
-    ToggleFlag();
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
-    pros::delay(100);
-    RightDriveSmart.move_velocity(80);
-    LeftDriveSmart.move_velocity(-80);
-    pros::delay(500);
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
-    pros::delay(100);
-    ToggleFlag(); // takes off the mobel goal (next is to camp it)
+    // RightDriveSmart.move_velocity(-80);
+    // LeftDriveSmart.move_velocity(80);
+    // pros::delay(400);
+    // ToggleFlag();
+    // RightDriveSmart.move_velocity(0);
+    // LeftDriveSmart.move_velocity(0);
+    // pros::delay(100);
+    // RightDriveSmart.move_velocity(80);
+    // LeftDriveSmart.move_velocity(-80);
+    // pros::delay(500);
+    // RightDriveSmart.move_velocity(0);
+    // LeftDriveSmart.move_velocity(0);
+    // pros::delay(100);
+    // ToggleFlag(); // takes off the mobel goal (next is to camp it)
 
-    RightDriveSmart.move_velocity(80);
-    LeftDriveSmart.move_velocity(80);
-    pros::delay(400);
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
+    // RightDriveSmart.move_velocity(80);
+    // LeftDriveSmart.move_velocity(80);
+    // pros::delay(400);
+    // RightDriveSmart.move_velocity(0);
+    // LeftDriveSmart.move_velocity(0);
 
-    RightDriveSmart.move_velocity(-80);
-    LeftDriveSmart.move_velocity(80);
-    pros::delay(300);
-    ToggleClamp();
-    RightDriveSmart.move_velocity(80);
-    LeftDriveSmart.move_velocity(-80);
-    pros::delay(200);
+    // RightDriveSmart.move_velocity(-80);
+    // LeftDriveSmart.move_velocity(80);
+    // pros::delay(300);
+    // ToggleClamp();
+    // RightDriveSmart.move_velocity(80);
+    // LeftDriveSmart.move_velocity(-80);
+    // pros::delay(200);
 
-    Intake.move_velocity(200);
-    pros::delay(2000);
-    Intake.move_velocity(0);
+    // Intake.move_velocity(200);
+    // pros::delay(2000);
+    // Intake.move_velocity(0);
 
-    RightDriveSmart.move_velocity(-80);
-    LeftDriveSmart.move_velocity(-80);
-    pros::delay(400);
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
+    // RightDriveSmart.move_velocity(-80);
+    // LeftDriveSmart.move_velocity(-80);
+    // pros::delay(400);
+    // RightDriveSmart.move_velocity(0);
+    // LeftDriveSmart.move_velocity(0);
 
-    RightDriveSmart.move_velocity(80);
-    LeftDriveSmart.move_velocity(-80);
-    pros::delay(400);
-    RightDriveSmart.move_velocity(0);
-    LeftDriveSmart.move_velocity(0);
+    // RightDriveSmart.move_velocity(80);
+    // LeftDriveSmart.move_velocity(-80);
+    // pros::delay(400);
+    // RightDriveSmart.move_velocity(0);
+    // LeftDriveSmart.move_velocity(0);
 }
 
 void Blue_Negative()
@@ -513,7 +513,7 @@ void Blue_Negative()
     RightDriveSmart.move_velocity(80);
     LeftDriveSmart.move_velocity(-80);
     Intake.move_velocity(200);
-    pros::delay(400);
+    pros::delay(410);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
     pros::delay(1000);
@@ -539,13 +539,6 @@ void Blue_Negative()
     pros::delay(2000);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
-
-    RightDriveSmart.move_velocity(80);
-    LeftDriveSmart.move_velocity(-80);
-    Intake.move_velocity(200);
-    pros::delay(300);
-    RightDriveSmart.move_velocity(-80);
-    LeftDriveSmart.move_velocity(80);
 }
 
 void Skills()
@@ -732,7 +725,7 @@ void Skills()
     // LeftDriveSmart.move_velocity(0);
 }
 
-void negative()
+void Red_Negative()
 {
     RightDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     LeftDriveSmart.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
@@ -751,38 +744,42 @@ void negative()
 
     Intake.move_velocity(200);
     pros::delay(1200);
-    Intake.move_velocity(0); // scores preload
-
+    Intake.move_velocity(-200); // scores preload
     pros::delay(100);
+    Intake.move_velocity(0);
 
     RightDriveSmart.move_velocity(-80);
     LeftDriveSmart.move_velocity(-80);
-    pros::delay(220);
+    pros::delay(215);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
 
     RightDriveSmart.move_velocity(80);
     LeftDriveSmart.move_velocity(-80);
     Intake.move_velocity(200);
-    pros::delay(500);
+    pros::delay(650);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
     pros::delay(1800);
+    Intake.move_velocity(-200);
+    pros::delay(100);
     Intake.move_velocity(0);
 
     RightDriveSmart.move_velocity(-80);
     LeftDriveSmart.move_velocity(-80);
-    pros::delay(190);
+    pros::delay(240);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
 
     RightDriveSmart.move_velocity(80);
     LeftDriveSmart.move_velocity(-80);
     Intake.move_velocity(200);
-    pros::delay(400);
+    pros::delay(410);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
     pros::delay(1000);
+    Intake.move_velocity(-200);
+    pros::delay(100);
     Intake.move_velocity(0);
 
     RightDriveSmart.move_velocity(80);
@@ -797,21 +794,13 @@ void negative()
     pros::delay(300);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
-    pros::delay(2000);
-    Intake.move_velocity(0);
+    pros::delay(2500);
 
-    RightDriveSmart.move_velocity(-80);
-    LeftDriveSmart.move_velocity(90);
+    RightDriveSmart.move_velocity(-70);
+    LeftDriveSmart.move_velocity(100);
     pros::delay(2000);
     RightDriveSmart.move_velocity(0);
     LeftDriveSmart.move_velocity(0);
-
-    RightDriveSmart.move_velocity(80);
-    LeftDriveSmart.move_velocity(-80);
-    Intake.move_velocity(200);
-    pros::delay(300);
-    RightDriveSmart.move_velocity(-80);
-    LeftDriveSmart.move_velocity(80);
 
 }
 /**
